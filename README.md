@@ -11,11 +11,17 @@
 
 ---
 
+## 🎥 Demo Video
+
+[![Smart Recipe Generator Demo](https://img.youtube.com/vi/vPMBFC6GXCE/maxresdefault.jpg)](https://www.youtube.com/watch?v=vPMBFC6GXCE&t=3s)
+
+---
+
 ## 🎯 Project Overview
 
-Smart Recipe Generator is an intelligent cooking assistant that identifies ingredients from photos using AI and suggests personalized recipes with detailed instructions, nutritional information, and smart substitutions. Now featuring advanced nutrient bioavailability calculations and RDA (Recommended Dietary Allowance) coverage analysis.
+Smart Recipe Generator is an intelligent cooking assistant that identifies ingredients from photos using AI and suggests personalized recipes with detailed instructions, nutritional information, a[...]
 
-**Key Innovation:** Advanced fuzzy-matching algorithm that understands ingredient variations and dietary restrictions to deliver highly relevant recipe suggestions with match percentage scores, combined with scientific nutrient bioavailability adjustments based on cooking methods and lifestyle factors.
+**Key Innovation:** Advanced fuzzy-matching algorithm that understands ingredient variations and dietary restrictions to deliver highly relevant recipe suggestions with match percentage scores, co[...]
 
 ---
 
@@ -88,16 +94,16 @@ Smart Recipe Generator is an intelligent cooking assistant that identifies ingre
 ## 🏗️ Architecture
 
 ```
-┌─────────────────────────────────────────────────────────────────┐
+┌────────────────────────────────────────────────────────────────…
 │                         CLIENT LAYER                            │
 │  Next.js 15 + React 19 + TypeScript + Tailwind + shadcn/ui    │
 │  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐      │
 │  │  Image   │  │  Recipe  │  │ Chatbot  │  │ Filters  │      │
 │  │  Upload  │  │  Cards   │  │   Chat   │  │  Panel   │      │
 │  └──────────┘  └──────────┘  └──────────┘  └──────────┘      │
-└────────────────────────┬────────────────────────────────────────┘
+└────────────────────────┬───────────────────────────────────────…
                          │ REST API
-┌────────────────────────▼────────────────────────────────────────┐
+┌────────────────────────▼───────────────────────────────────────[...]
 │                        API LAYER                                │
 │                FastAPI + Pydantic Validation                    │
 │  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐         │
@@ -109,9 +115,9 @@ Smart Recipe Generator is an intelligent cooking assistant that identifies ingre
 │  │  Nutrition   │  │  Nutrition   │                            │
 │  │ /bioavail    │  │ /rda-coverage│                            │
 │  └──────────────┘  └──────────────┘                            │
-└────────────────────────┬────────────────────────────────────────┘
+└────────────────────────┬───────────────────────────────────────[...]
                          │
-┌────────────────────────▼────────────────────────────────────────┐
+┌────────────────────────▼───────────────────────────────────────[...]
 │                     SERVICE LAYER                               │
 │  ┌────────────────┐  ┌────────────────┐  ┌────────────────┐   │
 │  │  Gemini Vision │  │ Recipe Matcher │  │   LangChain    │   │
@@ -125,16 +131,16 @@ Smart Recipe Generator is an intelligent cooking assistant that identifies ingre
 │  │ Bioavailability│  │   RDA Service  │                       │
 │  │    Service     │  │  + Recomms     │                       │
 │  └────────────────┘  └────────────────┘                       │
-└────────────────────────┬────────────────────────────────────────┘
+└────────────────────────┬───────────────────────────────────────[...]
                          │
-┌────────────────────────▼────────────────────────────────────────┐
+┌────────────────────────▼───────────────────────────────────────[...]
 │                      DATA LAYER                                 │
 │         Supabase (PostgreSQL) + JSON Recipe Database           │
 │  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐         │
 │  │   Recipes    │  │    Users     │  │  Favorites   │         │
 │  │   (30+)      │  │              │  │   Ratings    │         │
 │  └──────────────┘  └──────────────┘  └──────────────┘         │
-└─────────────────────────────────────────────────────────────────┘
+└────────────────────────────────────────────────────────────────[...]
 ```
 
 ---
@@ -233,6 +239,7 @@ project/
 │   │   ├── models/              # Database models
 │   │   ├── schemas/             # Pydantic schemas
 │   │   │   ├── nutrition_schema.py # Bioavailability & RDA schemas
+│   │   │   └── response_schema.py # Generic responses
 │   │   └── utils/               # Error handlers, validators
 │   ├── data/                    # Recipe & nutrition databases
 │   │   ├── seed_recipes.py     # 100+ recipe database
@@ -266,17 +273,17 @@ project/
 
 I architected a full-stack solution prioritizing intelligent recipe matching and exceptional user experience.
 
-**AI Integration:** Google Gemini Vision API powers ingredient recognition with preprocessing pipelines (image validation, compression, format conversion) ensuring optimal accuracy. The system handles confidence scoring and duplicate detection automatically.
+**AI Integration:** Google Gemini Vision API powers ingredient recognition with preprocessing pipelines (image validation, compression, format conversion) ensuring optimal accuracy. The system ha[...]
 
-**Core Innovation - Fuzzy Matching Algorithm:** Developed a sophisticated scoring system that calculates recipe relevance using weighted matches (exact: 1.0, fuzzy: 0.8), critical ingredient penalties (-20 points), and dietary multipliers. String similarity algorithms (70% threshold) handle variations like "chicken breast" vs "chicken," producing transparent match percentages that guide user decisions.
+**Core Innovation - Fuzzy Matching Algorithm:** Developed a sophisticated scoring system that calculates recipe relevance using weighted matches (exact: 1.0, fuzzy: 0.8), critical ingredient pena[...]
 
-**Nutrient Bioavailability Engine:** Implemented scientific nutrient adjustment calculations based on cooking methods, retention factors, and digestibility scores. The system integrates comprehensive food composition databases (Anuvaad Indian Food Database, Food Composition Database) to calculate base nutrients, then applies cooking method-specific retention factors and category-based digestibility adjustments. Lifestyle factors like stress, age, and post-workout status further fine-tune bioavailability calculations.
+**Nutrient Bioavailability Engine:** Implemented scientific nutrient adjustment calculations based on cooking methods, retention factors, and digestibility scores. The system integrates comprehen[...]
 
-**RDA Coverage & Recommendations:** RDA calculation engine determines nutrient coverage percentages using age and gender-specific Recommended Dietary Allowance values. The system identifies nutrients with low coverage (<50%) and provides rule-based food suggestions from curated high and medium sources, helping users meet their nutritional needs.
+**RDA Coverage & Recommendations:** RDA calculation engine determines nutrient coverage percentages using age and gender-specific Recommended Dietary Allowance values. The system identifies nutri[...]
 
 **Smart Substitutions:** AI-powered substitution service suggests alternatives with ratios and preparation notes, making recipes adaptable to available ingredients.
 
-**User Experience:** Mobile-first design with skeleton loaders, debounced search (300ms), API caching, and lazy loading creates seamless interactions. The LangChain-powered chatbot provides contextual cooking assistance with conversation memory.
+**User Experience:** Mobile-first design with skeleton loaders, debounced search (300ms), API caching, and lazy loading creates seamless interactions. The LangChain-powered chatbot provides conte[...]
 
 **Error Handling:** Comprehensive validation using Pydantic schemas, custom exception handlers, and graceful degradation ensures reliability. All errors provide actionable user feedback.
 
